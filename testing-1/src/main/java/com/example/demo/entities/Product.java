@@ -1,6 +1,9 @@
 package com.example.demo.entities;
 
+
+
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name="product")
@@ -8,6 +11,7 @@ public class Product {
 	@Id
 	 @GeneratedValue(strategy = GenerationType.IDENTITY)
  private Integer Id;
+	@NotNull(message = "Product name cannot be null")
 	@Column(name="product_name")
 	 private String name;
 		@Column(name="product_description")

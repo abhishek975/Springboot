@@ -12,12 +12,15 @@ import org.springframework.web.bind.annotation.*;
 import com.example.demo.entities.Product;
 import com.example.demo.services.ProductService;
 
-@RestController("/app")
+import jakarta.validation.Valid;
+
+@RestController
+@RequestMapping("/app")
 public class ProductController {
    @Autowired
 	private ProductService  productService;
    @PostMapping("/storeproducts")
-	public ResponseEntity<?> storeProduct(@RequestBody Product p){
+	public ResponseEntity<?> storeProduct(@Valid @RequestBody Product p){
 		Product savedProduct=productService.insertProduct(p);
 		return ResponseEntity.status(HttpStatus.CREATED).body("Product saved successfully");
 	}
@@ -39,13 +42,13 @@ public ResponseEntity<?> allProducts(){
 	 return  ResponseEntity.ok(allproducts);
 }
 @PutMapping("/updateProduct/{id}")
-public ResponseEntity<?> updateProduct(@PathVariable Long id,@RequestBody Product p){
+public ResponseEntity<?> updateproduct(@PathVariable Long id,@Valid @RequestBody Product p){
 	productService.updateProduct(id, p);
 	return ResponseEntity.status(HttpStatus.CREATED).body("Product updated successfully");
 }
 @DeleteMapping("/removeProduct/{id}")
 public ResponseEntity<?> updateProduct(@PathVariable Long id){
 	productService.removeProduct(id);
-	return ResponseEntity.status(HttpStatus.CREATED).body("Product updated successfully");
+	return ResponseEntity.status(HttpStatus.CREATED).body("Product deleted successfully");
 }
 }

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.entities.Product;
+
 import com.example.demo.repositories.ProductRepository;
 
 @Service
@@ -31,7 +32,7 @@ public class ProductServiceImpl implements ProductService{
     	{ Product pexist=checkProduct.get();
     		pexist.setName(p.getName());
     		pexist.setDescription(p.getDescription());
-    		return checkProduct.get();
+    		return productRepository.save(pexist);
     	}
     	else
     		throw new RuntimeException("Product not found with id: " + Id);
